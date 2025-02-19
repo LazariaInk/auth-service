@@ -11,15 +11,11 @@ import java.util.Date;
 
 @Component
 public class CustomJwtUtil {
-
     private static final String SECRET_KEY = "thisissecretykeyformyaccesssecreytokenthatiwilluseinproduciton";
-
     private static final String REFRESH_SECRET_KEY = "thisissecretykeyformyrefreshsecreytokenthatiwilluseinproduciton";
     private static final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 15;
     private static final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24 * 7;
-
     private final SecretKey accessKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
-
     private final SecretKey refreshKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(REFRESH_SECRET_KEY));
 
     public String generateAccessToken(String email) {

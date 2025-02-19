@@ -20,13 +20,11 @@ public class OAuth2UserService {
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
         String picture = oAuth2User.getAttribute("picture");
-
         Optional<User> existingUser = userRepository.findByEmail(email);
 
         if (existingUser.isPresent()) {
             return existingUser.get();
         }
-
         User newUser = new User(email, name, picture, User.AuthProvider.GOOGLE);
         return userRepository.save(newUser);
     }

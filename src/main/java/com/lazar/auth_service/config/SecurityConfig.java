@@ -9,7 +9,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 public class SecurityConfig {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -19,7 +18,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(customAuthenticationSuccessHandler()) // Folosim un handler personalizat
+                        .successHandler(customAuthenticationSuccessHandler())
                 );
 
         return http.build();
