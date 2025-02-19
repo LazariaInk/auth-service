@@ -18,6 +18,7 @@ public class User {
     private String nickname;
     private String description;
     private String profileDescription;
+    private String picture;
     @Enumerated(EnumType.STRING)
     private AuthProvider authProvider;
 
@@ -34,7 +35,13 @@ public class User {
     public User() {
     }
 
-    public User(String email,String name,String picture,AuthProvider authProvider){}
+    public User(String email,String name,String picture,AuthProvider authProvider){
+        this.email = email;
+        this.name = name;
+        this.picture = picture;
+        this.authProvider = authProvider;
+        this.nickname = email;
+    }
 
     public long getId() {
         return id;
@@ -54,6 +61,14 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public void setName(String name) {

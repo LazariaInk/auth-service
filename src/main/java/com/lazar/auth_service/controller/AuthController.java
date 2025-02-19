@@ -2,9 +2,11 @@ package com.lazar.auth_service.controller;
 
 import com.lazar.auth_service.model.RefreshToken;
 import com.lazar.auth_service.model.User;
+import com.lazar.auth_service.service.OAuth2UserService;
 import com.lazar.auth_service.service.RefreshTokenService;
 import com.lazar.auth_service.service.UserService;
 import com.lazar.auth_service.util.CustomJwtUtil;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -17,10 +19,13 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
     private final UserService userService;
 
-    public AuthController(CustomJwtUtil jwtUtil, RefreshTokenService refreshTokenService, UserService userService) {
+    private final OAuth2UserService oAuth2UserService;
+
+    public AuthController(CustomJwtUtil jwtUtil, RefreshTokenService refreshTokenService, UserService userService, OAuth2UserService oAuth2UserService) {
         this.jwtUtil = jwtUtil;
         this.refreshTokenService = refreshTokenService;
         this.userService = userService;
+        this.oAuth2UserService = oAuth2UserService;
     }
 
     @PostMapping("/login")
@@ -47,4 +52,5 @@ public class AuthController {
             throw new RuntimeException("Invalid or expired refresh token");
         }
     }
+
 }
