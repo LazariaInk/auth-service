@@ -19,13 +19,10 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
     private final UserService userService;
 
-    private final OAuth2UserService oAuth2UserService;
-
-    public AuthController(CustomJwtUtil jwtUtil, RefreshTokenService refreshTokenService, UserService userService, OAuth2UserService oAuth2UserService) {
+    public AuthController(CustomJwtUtil jwtUtil, RefreshTokenService refreshTokenService, UserService userService) {
         this.jwtUtil = jwtUtil;
         this.refreshTokenService = refreshTokenService;
         this.userService = userService;
-        this.oAuth2UserService = oAuth2UserService;
     }
 
     @PostMapping("/login")
