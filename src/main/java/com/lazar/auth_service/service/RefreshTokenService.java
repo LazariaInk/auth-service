@@ -4,6 +4,7 @@ import com.lazar.auth_service.model.RefreshToken;
 import com.lazar.auth_service.model.User;
 import com.lazar.auth_service.repository.RefreshTokenRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -18,12 +19,21 @@ public class RefreshTokenService {
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
-    public RefreshToken createRefreshToken(User user) {
+    @Transactional
+    public RefreshToken createOrUpdateRefreshToken(User user) {
+        Optional<RefreshToken> existingToken = refreshTokenRepository.findByUser(user);
+
+        if (existingToken.isPresent()) {
+            RefreshToken refreshToken = existingToken.get();
+            refreshToken.setToken(UUID.randomUUID().toString());
+            refreshToken.setExpiryDate(Instant.now().plusSeconds(7 * 24 * 60 * 60));
+            return refreshTokenRepository.save(refreshToken);
+        }
+
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(user);
         refreshToken.setToken(UUID.randomUUID().toString());
         refreshToken.setExpiryDate(Instant.now().plusSeconds(7 * 24 * 60 * 60));
-
         return refreshTokenRepository.save(refreshToken);
     }
 

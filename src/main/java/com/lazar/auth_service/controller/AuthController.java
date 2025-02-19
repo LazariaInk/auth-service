@@ -32,8 +32,9 @@ public class AuthController {
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             String accessToken = jwtUtil.generateAccessToken(email);
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
-            return "Access Token: " + accessToken + "\nRefresh Token: " + refreshToken.getToken();
+            //RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
+            //return "Access Token: " + accessToken + "\nRefresh Token: " + refreshToken.getToken();
+            return "";
         }
 
         throw new RuntimeException("User not found");

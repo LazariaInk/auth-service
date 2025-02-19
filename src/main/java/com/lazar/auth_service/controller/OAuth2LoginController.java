@@ -32,16 +32,19 @@ public class OAuth2LoginController {
         if (authToken == null) {
             throw new RuntimeException("Authentication token is null");
         }
-        
+
         String email = authToken.getPrincipal().getAttribute("email");
         if (email == null) {
             throw new RuntimeException("Email not found in OAuth2 authentication response");
         }
 
+
         User user = oAuth2UserService.processOAuth2User(authToken.getPrincipal());
 
+
         String accessToken = jwtUtil.generateAccessToken(email);
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
+
+        RefreshToken refreshToken = refreshTokenService.createOrUpdateRefreshToken(user);
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);
