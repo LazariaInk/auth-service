@@ -34,6 +34,8 @@ public class User {
     public User() {
     }
 
+    public User(String email,String name,String picture,AuthProvider authProvider){}
+
     public long getId() {
         return id;
     }
